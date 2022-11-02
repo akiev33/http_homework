@@ -12,8 +12,9 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: GridView.builder(
+        padding: const EdgeInsets.all(10),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, mainAxisSpacing: 13, mainAxisExtent: 96),
+            crossAxisCount: 3, mainAxisSpacing: 10, crossAxisSpacing: 10),
         itemBuilder: (context, index) => GridItem(
             id: vm.posts[index].id.toString(),
             title: vm.posts[index].title,
@@ -40,9 +41,19 @@ class GridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.asset(url),
-        Text(id),
-        Text(title),
+        Image.network(url),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(id),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ],
     );
   }
